@@ -6,6 +6,7 @@
     <image-swiper :list="data"></image-swiper>
     <!-- 模块组件 -->
     <TabInfo></TabInfo>
+    <text>#e60026</text>
   </view>
 </template>
 
