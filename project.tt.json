@@ -1,0 +1,13 @@
+{
+  "miniprogramRoot": "./",
+  "projectname": "my-nutui-app",
+  "description": "taro+vue3+ts+sass+nutui",
+  "appid": "touristappid",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "postcss": false,
+    "minified": false
+  },
+  "compileType": "miniprogram"
+}
