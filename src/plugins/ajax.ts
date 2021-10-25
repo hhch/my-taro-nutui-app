@@ -3,7 +3,7 @@ import Taro from '@tarojs/taro'
 const isUrl = (url: string): boolean => {
   return /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/.test(url)
 }
-const cookie = Taro.getStorageSync('cookie')
+const cookie: string = Taro.getStorageSync('cookie') || ''
 
 const baseUrl = 'http://localhost:3000'
 class Ajax {

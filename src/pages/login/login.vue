@@ -9,7 +9,7 @@
     <view class="login-captcha">
       <label for="captcha">验证码</label>
       <view class="input-wrap-ext">
-        <input class="input" type="number" id="captcha" v-model="captcha" placeholder="请输入验证码" />
+        <input class="input" type="number" id="captcha" v-model="captcha" :maxlength="4" placeholder="请输入验证码" />
         <view class="login-captcha-btn" @click="getCaptcha">
           <text>获取</text>
         </view>
@@ -41,7 +41,7 @@ export default {
         this.show = true
         return
       }
-      ajax.post('/login/cellphone', { phone: this.userPhone, captcha: this.captcha }).then(res => {
+      ajax.get('/login/cellphone', { phone: this.userPhone, captcha: this.captcha }).then(res => {
         Taro.setStorageSync({
           key: 'loginStatus',
           data: true
