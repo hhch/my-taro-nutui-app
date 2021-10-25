@@ -41,16 +41,16 @@ export default {
         this.show = true
         return
       }
-      ajax.get('/login/cellphone', { phone: this.userPhone, captcha: this.captcha }).then(res => {
-        Taro.setStorage({
+      ajax.post('/login/cellphone', { phone: this.userPhone, captcha: this.captcha }).then(res => {
+        Taro.setStorageSync({
           key: 'loginStatus',
           data: true
         })
-        Taro.setStorage({
+        Taro.setStorageSync({
           key: 'cookie',
           data: res.cookie
         })
-        Taro.setStorage({
+        Taro.setStorageSync({
           key: 'token',
           data: res.token
         })
