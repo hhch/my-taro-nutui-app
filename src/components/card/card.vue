@@ -26,9 +26,11 @@ export default {
   padding: 10px;
   font-size: 16px;
   background-color: #fff;
+
   .card__header {
     .card__header-title {
       font-weight: 900;
+      letter-spacing: 2px;
     }
   }
   .card__content {

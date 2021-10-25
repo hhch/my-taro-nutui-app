@@ -1,7 +1,7 @@
 <template>
   <swiper class="swiper__content" indicator-color="#eee" indicator-active-color="#0000c2" :circular="true" :autoplay="true">
     <swiper-item v-for="(item, index) in list" :key="index">
-      <image class="swiper__image" :src="item.url" alt="" />
+      <image class="swiper__image" :src="item.pic" alt="" />
     </swiper-item>
   </swiper>
 </template>

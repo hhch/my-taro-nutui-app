@@ -5,8 +5,7 @@
     <!-- swiper 组件 -->
     <image-swiper :list="data"></image-swiper>
     <!-- 模块组件 -->
-    <!-- <TabInfo></TabInfo>
-    -->
+    <TabInfo></TabInfo>
     <MusicCard>
       <MusicCardItem v-for="item in recommendList" :key="item.id" :data="item"></MusicCardItem>
     </MusicCard>
@@ -31,25 +30,27 @@ export default {
     MusicCard,
     MusicCardItem
   },
-  setup() {
-    const data = [{ url: 'https://storage.360buyimg.com/jdc-article/NutUItaro34.jpg' }, { url: 'https://storage.360buyimg.com/jdc-article/welcomenutui.jpg' }, { url: 'https://storage.360buyimg.com/jdc-article/fristfabu.jpg' }]
 
-    return {
-      data
-    }
-  },
   data() {
     return {
+      data: [],
       recommendList: []
     }
   },
   created() {
     this.getRecommendList()
+    this.getBannerData()
   },
   methods: {
     async getRecommendList() {
       const res = await ajax.get('http://localhost:3000/personalized?limit=6')
       this.recommendList = res.result
+    },
+    async getBannerData() {
+      const res = await ajax.get('http://localhost:3000/banner?type=1')
+
+      this.data = res.banners
+      console.log(this.data)
     }
   }
 }

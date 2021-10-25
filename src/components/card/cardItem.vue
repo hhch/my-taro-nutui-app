@@ -4,11 +4,10 @@
       <image class="image" :src="data.picUrl"></image>
       <text class="card-item-other">{{ filteWithNum(data.playCount) }}</text>
     </view>
-    <view class="card-item-title ">
-      <text>
-        {{ data.name }}
-      </text>
-    </view>
+
+    <text class="card-item-title">
+      {{ data.name }}
+    </text>
   </view>
 </template>
 <script lang="ts">
@@ -36,6 +35,17 @@ export default {
   margin: 10px 10px 10px 0;
   .card-item__image {
     position: relative;
+    z-index: 100;
+    &::before {
+      content: '';
+      position: absolute;
+      background-color: #eee;
+      width: 92px;
+      height: 92px;
+      border-radius: 4px;
+      top: -3px;
+      left: 4px;
+    }
     .card-item-other {
       position: absolute;
       right: 4px;
@@ -57,9 +67,11 @@ export default {
   .card-item-title {
     font-size: 10px;
     width: 100px;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 }
 </style>
