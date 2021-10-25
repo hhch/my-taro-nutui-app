@@ -24,7 +24,9 @@ export default {
   },
   methods: {
     filteWithNum(data) {
-      if (data >= 10000) return `${parseInt(data / 10000)}万`
+      const Wan = data / 10000
+      if (Wan > 10000) return `${(Wan / 10000).toFixed(2)}亿`
+      if (Wan > 1) return `${Wan.toFixed(2)}万`
     }
   }
 }
