@@ -55,7 +55,7 @@ export default {
     }
   }
   .card-item-title {
-    font-size: 14px;
+    font-size: 12px;
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
