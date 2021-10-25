@@ -5,8 +5,7 @@
     <!-- swiper 组件 -->
     <image-swiper :list="data"></image-swiper>
     <!-- 模块组件 -->
-    <TabInfo></TabInfo>
-    <<<<<<< HEAD =======
+    <!-- <TabInfo></TabInfo> -->
     <MusicCard>
       <MusicCardItem
         v-for="item in recommendList"
@@ -14,7 +13,6 @@
         :data="item"
       ></MusicCardItem>
     </MusicCard>
-    >>>>>>> c22073d210d3409b5c8efeb66caf0a2e374c510f
   </view>
 </template>
 
@@ -40,12 +38,19 @@ export default {
   data() {
     return {
       data: [],
-      recommendList: []
+      recommendList: [],
+      todayStart: Math.floor(
+        new Date(new Date().setHours(0, 0, 0, 0)).getTime() / 1000
+      ),
+      todayEnd: 0,
+      MusicDateInfo: {}
     }
   },
   created() {
+    this.todayEnd = this.todayStart + 24 * 60 * 60 * 1000
     this.getRecommendList()
     this.getBannerData()
+    this.getMusicDateInfo()
   },
   methods: {
     async getRecommendList() {
@@ -55,6 +60,13 @@ export default {
     async getBannerData() {
       const res = await ajax.get('http://localhost:3000/banner?type=1')
       this.data = res.banners
+    },
+    async getMusicDateInfo() {
+      const res = await ajax.get('/calendar', {
+        startTime: this.todayStart,
+        endTime: this.todayEnd
+      })
+      this.MusicDateInfo = res.data
     }
   }
 }

@@ -7,7 +7,7 @@
 <script>
 import Taro from '@tarojs/taro'
 export default {
-  created() {
+  mounted() {
     // 没有登录调到登录页
     this.CheckLoginStatus()
   },
