@@ -48,9 +48,7 @@ export default {
     },
     async getBannerData() {
       const res = await ajax.get('http://localhost:3000/banner?type=1')
-
       this.data = res.banners
-      console.log(this.data)
     }
   }
 }
