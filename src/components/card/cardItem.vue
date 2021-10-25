@@ -4,7 +4,7 @@
       <image class="image" :src="data.picUrl"></image>
       <text class="card-item-other">{{ filteWithNum(data.playCount) }}</text>
     </view>
-    <view class="card-item-title">
+    <view class="card-item-title ">
       <text>
         {{ data.name }}
       </text>
@@ -32,7 +32,7 @@ export default {
 </script>
 <style lang="scss">
 .card-item__wrapper {
-  width: 125px;
+  width: 100px;
   margin: 10px 10px 10px 0;
   .card-item__image {
     position: relative;
@@ -49,18 +49,17 @@ export default {
       letter-spacing: 0.5px;
     }
     .image {
-      width: 125px;
-      height: 125px;
+      width: 100px;
+      height: 100px;
       border-radius: 10px;
     }
   }
   .card-item-title {
-    font-size: 12px;
-    width: 100%;
+    font-size: 10px;
+    width: 100px;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; //行数
   }
 }
 </style>

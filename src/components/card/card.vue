@@ -25,6 +25,7 @@ export default {
 .card__wrapper {
   padding: 10px;
   font-size: 16px;
+  background-color: #fff;
   .card__header {
     .card__header-title {
       font-weight: 900;

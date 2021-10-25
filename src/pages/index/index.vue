@@ -56,10 +56,10 @@ export default {
 </script>
 
 <style lang="scss">
-.index {
+.index-wrapper {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  background-color: #eee;
 }
 </style>
