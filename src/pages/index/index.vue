@@ -25,6 +25,7 @@ import MusicCard from '../../components/card/card.vue' // 推荐歌单模块基�
 
 import MusicCardItem from '../../components/card/cardItem.vue' // 推荐歌单模块基本组件
 import ajax from '../../plugins/ajax'
+import Taro from '@tarojs/taro'
 export default {
   name: 'Index',
   components: {
@@ -51,6 +52,12 @@ export default {
     this.getRecommendList()
     this.getBannerData()
     this.getMusicDateInfo()
+  },
+  mounted() {},
+  onPullDownRefresh() {
+    setTimeout(() => {
+      Taro.stopPullDownRefresh()
+    }, 3000)
   },
   methods: {
     async getRecommendList() {
