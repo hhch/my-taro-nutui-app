@@ -1,6 +1,6 @@
 import { Button, Icon, Input, Tabs, TabPane, Toast } from '@nutui/nutui-taro'
 
-const Components = [Button, Toast, Input, Icon, Tabs, TabPane]
+const Components = [Button, Input, Icon, Tabs, TabPane, Toast]
 
 const useNutUI = (app: any) => {
   Components.forEach(item => {

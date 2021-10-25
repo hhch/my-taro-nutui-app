@@ -23,12 +23,20 @@ export default {
 </script>
 <style lang="scss">
 .card__wrapper {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #fff;
+
   .card__header {
-    font-size: 16px;
-    padding: 10px;
     .card__header-title {
       font-weight: 900;
+      letter-spacing: 2px;
     }
+  }
+  .card__content {
+    width: 100%;
+    overflow: auto;
+    display: flex;
   }
 }
 </style>

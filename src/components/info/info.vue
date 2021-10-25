@@ -1,31 +1,44 @@
 <template>
   <view class="tab-info__wrapper">
-    <view class="tab-info__item" v-for="({ title, url }, index) in list" :key="index" @click="handleClick(url)">
-      <text>{{ title }}</text>
+    <view class="tab-info__item" v-for="({ name, iconUrl }, index) in list" :key="index" @click="handleClick(url)">
+      <image class="image" :src="iconUrl"></image>
+      <text class="tab-today" v-if="index == 0">{{ today }}</text>
+      <text>{{ name }}</text>
     </view>
   </view>
 </template>
 <script lang="ts">
 import Taro from '@tarojs/taro'
-import { reactive } from '@vue/reactivity'
+import ajax from '../../plugins/ajax'
 interface ListType {
-  url: string
-  title: string
+  name: string
+  iconUrl: string
+}
+interface Api {
+  data: ListType[]
+  code: string
 }
 export default {
   name: 'TabInfo',
-  setup() {
-    const list = reactive<ListType[]>([
-      { title: '每日推荐', url: '/pages/search/search' },
-      { title: '排行榜', url: '/pages/search/search' },
-      { title: '歌单', url: '/pages/search/search' }
-    ])
-    const handleClick = (url: string): void => {
-      Taro.navigateTo({ url })
-    }
+
+  data() {
     return {
-      list,
-      handleClick
+      list: [],
+      today: 0
+    }
+  },
+  created() {
+    this.getFoundData()
+    this.today = new Date().getDate()
+  },
+  methods: {
+    async getFoundData() {
+      ajax.get('http://localhost:3000/homepage/dragon/ball').then((res: Api) => {
+        this.list = res.data
+      })
+    },
+    handleClick(url: string) {
+      Taro.navigateTo({ url })
     }
   }
 }
@@ -33,14 +46,35 @@ export default {
 <style lang="scss">
 .tab-info__wrapper {
   display: flex;
-  font-size: 14px;
+  font-size: 12px;
   padding: 10px;
   justify-content: space-between;
   border-bottom: 1px solid #eee;
+  background-color: #fff;
   flex-wrap: nowrap;
   overflow: auto;
   .tab-info__item {
     min-width: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 10px 0 0;
+    position: relative;
+    .image {
+      width: 36px;
+      height: 36px;
+      background-color: rgba($color: #e60026, $alpha: 0.1);
+      margin-bottom: 5px;
+      border-radius: 50%;
+    }
+    .tab-today {
+      position: absolute;
+      font-size: 10px;
+      left: 17px;
+      top: 21px;
+      font-weight: 600;
+      color: rgba($color: #e60026, $alpha: 0.8);
+    }
   }
 }
 </style>
