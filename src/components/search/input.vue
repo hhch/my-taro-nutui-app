@@ -1,42 +1,27 @@
 <template>
-  <view class="search-wrapper">
-    <view class="search__content" @click="handleClick">
-      <nut-icon class="search__prefix" name="search"></nut-icon>
+  <view :class="style['search-wrapper']">
+    <view :class="style['search__content']" @click="handleClick">
+      <nut-icon :class="style['search__prefix']" name="search"></nut-icon>
       <text>搜索歌曲、歌手</text>
     </view>
   </view>
 </template>
-<script lang="ts">
-import Taro from '@tarojs/taro'
+<script>
+import style from './input.module.scss'
 export default {
   name: 'searchInput',
   props: {
     status: String
   },
-  setup() {
-    const handleClick = () => {
-      Taro.navigateTo({ url: '/pages/search/search' })
-    }
+  data() {
     return {
-      handleClick
+      style
+    }
+  },
+  methods: {
+    handleClick() {
+      this.$Taro.navigateTo({ url: '/pages/search/search' })
     }
   }
 }
 </script>
-<style lang="scss">
-.search-wrapper {
-  padding: 5px;
-  font-size: 14px;
-  background-color: #eee;
-  .search__prefix {
-    margin-right: 5px;
-  }
-  .search__content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    padding: 2px 0;
-  }
-}
-</style>

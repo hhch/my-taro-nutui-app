@@ -1,0 +1,15 @@
+.search-wrapper {
+  padding: 5px;
+  font-size: 14px;
+  background-color: #eee;
+  .search__prefix {
+    margin-right: 5px;
+  }
+  .search__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    padding: 2px 0;
+  }
+}
