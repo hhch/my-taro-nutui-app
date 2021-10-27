@@ -1,6 +1,6 @@
 <template>
   <view class="search-detail__wrapper">
-    <searchNavbar v-model:value="searchData" :placeholder="searchDefault" @handleSearch="handleSearch"></searchNavbar>
+    <searchNavbar v-model:value="searchData" :placeholder="searchDefault" @handleSearch="handleSearch" @handleEnter="handleSearch"></searchNavbar>
     <scroll-view :scroll-y="true" class="detail-scroll__wrapper">
       <common-card :count="songListData.songCount" v-if="songListData.songs.length !== 0">
         <template #content>
@@ -53,6 +53,7 @@ export default {
   methods: {
     handleSearch() {
       // 直接查询搜索结果
+      this.getDetailData()
     },
     async getDetailData() {
       const res = await this.$ajax.get('/cloudsearch', { keywords: this.searchData })
