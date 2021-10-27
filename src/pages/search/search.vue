@@ -1,7 +1,7 @@
 <template>
   <view class="search-wrapper">
     <!-- 搜索 Navbar -->
-    <searchNavbar v-model:value="searchData" :placeholder="searchDefault" @handleSearch="handleSearch"></searchNavbar>
+    <searchNavbar v-model:value="searchData" :placeholder="searchDefault" @handleSearch="handleSearch" @handleEnter="hanleToDetail"></searchNavbar>
     <template v-if="!searchStatus">
       <view class="search-tab">
         <view class="tab-item">
@@ -93,9 +93,10 @@ export default {
       }
     },
     hanleToDetail(item) {
+      const keywords = item ? item.keyword : this.searchData
       // 根据搜索结果进入详情页
       this.$Taro.navigateTo({
-        url: '/pages/searchDetail/searchDetail' + `?keywords=${item.keyword}`
+        url: '/pages/searchDetail/searchDetail' + `?keywords=${keywords}`
       })
     }
   }

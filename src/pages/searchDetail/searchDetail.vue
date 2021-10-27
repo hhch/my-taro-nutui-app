@@ -28,7 +28,6 @@ export default {
       const res = await this.$ajax.get('/cloudsearch', { keywords: this.searchData })
       if (res.code == 200) {
         this.ReturnData = res.result
-        console.log(this.ReturnData)
       }
     }
   }
@@ -36,7 +35,7 @@ export default {
 </script>
 <style lang="scss">
 .search-detail__wrapper {
-  background-color: rgba(#eee, 0.6);
+  background-color: #f6f6f6;
   height: 100vh;
 }
 </style>
