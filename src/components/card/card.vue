@@ -5,9 +5,9 @@
         <text>{{ title }}</text>
       </view>
     </view>
-    <view class="card__content">
+    <scroll-view class="card__content" :scroll-x="true">
       <slot></slot>
-    </view>
+    </scroll-view>
   </view>
 </template>
 <script lang="ts">
@@ -35,7 +35,7 @@ export default {
   }
   .card__content {
     width: 100%;
-    overflow: auto;
+    // overflow: auto;
     display: flex;
   }
 }

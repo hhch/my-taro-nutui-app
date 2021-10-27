@@ -4,7 +4,6 @@
       <image class="image" :src="data.picUrl"></image>
       <text class="card-item-other">{{ filteWithNum(data.playCount) }}</text>
     </view>
-
     <text class="card-item-title">
       {{ data.name }}
     </text>

@@ -7,11 +7,7 @@
     <!-- 模块组件 -->
     <!-- <TabInfo></TabInfo> -->
     <MusicCard>
-      <MusicCardItem
-        v-for="item in recommendList"
-        :key="item.id"
-        :data="item"
-      ></MusicCardItem>
+      <MusicCardItem v-for="item in recommendList" :key="item.id" :data="item"></MusicCardItem>
     </MusicCard>
   </view>
 </template>
@@ -40,9 +36,7 @@ export default {
     return {
       data: [],
       recommendList: [],
-      todayStart: Math.floor(
-        new Date(new Date().setHours(0, 0, 0, 0)).getTime() / 1000
-      ),
+      todayStart: Math.floor(new Date(new Date().setHours(0, 0, 0, 0)).getTime() / 1000),
       todayEnd: 0,
       MusicDateInfo: {}
     }
