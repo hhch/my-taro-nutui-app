@@ -1,5 +1,5 @@
 <template>
-  <view class="card-item__wrapper">
+  <view class="card-item__wrapper" @click="handleClick">
     <view class="card-item__image">
       <image class="image" :src="data.picUrl"></image>
       <text class="card-item-other">{{ filteWithNum(data.playCount) }}</text>
@@ -21,11 +21,15 @@ export default {
   props: {
     data: Object as PropType<ItemType>
   },
+  emits: ['handleCardClick'],
   methods: {
     filteWithNum(data) {
       const Wan = data / 10000
       if (Wan > 10000) return `${(Wan / 10000).toFixed(2)}亿`
       if (Wan > 1) return `${Wan.toFixed(2)}万`
+    },
+    handleClick() {
+      this.$emit('handleCardClick', this.data)
     }
   }
 }

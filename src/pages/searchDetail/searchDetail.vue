@@ -2,7 +2,7 @@
   <view class="search-detail__wrapper">
     <searchNavbar v-model:value="searchData" :placeholder="searchDefault" @handleSearch="handleSearch"></searchNavbar>
     <scroll-view :scroll-y="true" class="detail-scroll__wrapper">
-      <common-card :count="songListData.songCount">
+      <common-card :count="songListData.songCount" v-if="songListData.songs.length !== 0">
         <template #content>
           <songListItem
             v-for="(item, index) in songListData.songs.slice(0, 5)"
@@ -13,7 +13,7 @@
           ></songListItem>
         </template>
       </common-card>
-      <common-card :count="playListData.playlistCount" :type="false" title="歌单" :showMore="false">
+      <common-card :count="playListData.playlistCount" :type="false" title="歌单" :showMore="false" v-if="playListData.playlists.length !== 0">
         <template #content>
           <playListItem
             v-for="(item, index) in playListData.playlists.slice(0, 5)"

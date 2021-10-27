@@ -7,7 +7,7 @@
     <!-- 模块组件 -->
     <!-- <TabInfo></TabInfo> -->
     <MusicCard>
-      <MusicCardItem v-for="item in recommendList" :key="item.id" :data="item"></MusicCardItem>
+      <MusicCardItem v-for="item in recommendList" :key="item.id" :data="item" @handleCardClick="handleCardClick"></MusicCardItem>
     </MusicCard>
   </view>
 </template>
@@ -68,6 +68,9 @@ export default {
         endTime: this.todayEnd
       })
       this.MusicDateInfo = res.data
+    },
+    handleCardClick(data) {
+      this.$Taro.navigateTo({ url: '/pages/playList/playList' + `?id=${data.id}` })
     }
   }
 }
