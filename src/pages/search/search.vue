@@ -136,6 +136,10 @@ export default {
     }
     .hot-content {
       padding-right: 10px;
+      max-width: 100px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
     &:nth-child(-n + 3) {
       .hot-index {
