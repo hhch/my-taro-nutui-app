@@ -2,12 +2,18 @@
   <view class="playList-index__wrapper">
     <view class="playList-index__wrapper-header">
       <!-- 头部展示信息 -->
-      <nut-navbar @on-click-back="back" @on-click-title="title" @on-click-send="send" title="订单详情"></nut-navbar>
+      <Navbar></Navbar>
     </view>
   </view>
 </template>
 <script>
-export default {}
+import Navbar from '../../components/navbar/navbar.vue'
+export default {
+  components: { Navbar },
+  data() {
+    return {}
+  }
+}
 </script>
 <style lang="scss">
 .playList-index__wrapper {
