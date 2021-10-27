@@ -1,0 +1,109 @@
+<template>
+  <view class="songList-item__wrapper">
+    <view class="songList-item__wrapper-left">
+      <view class="title">
+        <text>{{ data.name }}</text>
+      </view>
+      <view class="info">
+        <text class="vip" v-if="data.fee == 1">vip</text>
+        <!-- <text class="no" v-if="data.no == 1">试听</text> -->
+        <text class="origin" v-if="data.originCoverType == 1">原唱</text>
+        <text class="sq" v-if="data.v !== 150">SQ</text>
+        <text>{{ `${data.ar[0].name} - ${data.al.name}` }}</text>
+      </view>
+      <view class="other" v-if="showFirst">
+        <text class="other-item">999+评论</text>
+        <text class="other-item">评论过万</text>
+      </view>
+    </view>
+    <view class="songList-item__wrapper-right">
+      <!-- <image class="right__image" v-if="item.cp !== 0" src="../../asset/music/video.png"></image> -->
+      <image class="right__image" src="../../asset/music/action.png"></image>
+    </view>
+  </view>
+</template>
+<script lang="ts">
+import { PropType } from '@vue/runtime-core'
+interface ItemType {
+  name: string
+  fee: number
+  originCoverType: number
+  v: number
+  al: { name: string }
+  ar: { name: string }[]
+  no: number
+}
+export default {
+  props: {
+    data: Object as PropType<ItemType>,
+    showFirst: {
+      type: Boolean,
+      default: false
+    },
+    searchWord: String
+  }
+}
+</script>
+<style lang="scss">
+@mixin info {
+  font-size: 8px;
+  border-radius: 4px;
+  margin-right: 2px;
+  padding: 0px 2px;
+}
+.songList-item__wrapper {
+  display: flex;
+  min-height: 48px;
+  justify-content: space-between;
+  padding: 4px 0;
+  border-top: 1px solid rgba(#a2a2a2, 0.3);
+  .songList-item__wrapper-left {
+    .title {
+      color: rgba(#000, 0.8);
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .info {
+      font-size: 12px;
+      color: #7c7c7c;
+      max-width: 70vw;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      .sq {
+        @include info();
+        color: #e60026;
+        border: 1px solid rgba(#a2a2a2, 0.3);
+      }
+      .vip {
+        @include info();
+        color: #d48169;
+        border: 1px solid rgba(#a2a2a2, 0.3);
+      }
+      .origin {
+        font-size: 8px;
+        background-color: #e60026;
+        color: white;
+        border-radius: 2px;
+        margin-right: 2px;
+        padding: 1px 1px;
+      }
+    }
+    .other {
+      color: #e3cd74;
+      font-size: 8px;
+      .other-item {
+        margin-right: 5px;
+      }
+    }
+  }
+  .songList-item__wrapper-right {
+    align-self: center;
+    .right__image {
+      width: auto;
+      height: 20px;
+      margin-left: 10px;
+    }
+  }
+}
+</style>

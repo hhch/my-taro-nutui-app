@@ -46,7 +46,7 @@ export default {
     },
     handleEnter() {
       // 处理回车事件
-      this.$emit('handleEnter',false)
+      this.$emit('handleEnter', false)
     }
   }
 }
@@ -55,6 +55,7 @@ export default {
 .search-input__navbar {
   display: flex;
   padding: 10px;
+  height: 32px;
   align-items: center;
   position: relative;
   .search-main-icon {
