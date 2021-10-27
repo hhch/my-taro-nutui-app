@@ -88,6 +88,9 @@ export default {
       color: #232323;
       font-weight: bold;
       font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .palyList-item__wrapper_right_info {
       color: #707070;

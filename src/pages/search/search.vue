@@ -93,6 +93,7 @@ export default {
       }
     },
     hanleToDetail(item) {
+      if (!this.searchData) this.searchData = this.searchDefault
       const keywords = item ? item.keyword : this.searchData
       // 根据搜索结果进入详情页
       this.$Taro.navigateTo({
