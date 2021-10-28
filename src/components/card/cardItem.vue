@@ -73,7 +73,6 @@ export default {
     font-size: 10px;
     width: 100px;
     overflow: hidden;
-    text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;

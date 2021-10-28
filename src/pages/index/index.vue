@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     async getRecommendList() {
-      const res = await ajax.get('http://localhost:3000/personalized?limit=6')
+      const res = await ajax.get('http://localhost:3000/personalized?limit=5')
       this.recommendList = res.result
     },
     async getBannerData() {

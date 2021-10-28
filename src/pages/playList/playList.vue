@@ -1,28 +1,108 @@
 <template>
   <view class="playList-index__wrapper">
-    <view class="playList-index__wrapper-header">
+    <scroll-view :scroll-y="true" class="playList-index__wrapper-header">
       <!-- 头部展示信息 -->
-      <Navbar></Navbar>
-    </view>
+      <playListNavbar :title="specialType == 100 ? '官方动态歌单' : '歌单'" />
+      <view class="playList-index-opeartion">
+        <view class="playList-action__left">
+          <nut-icon name="search"></nut-icon>
+          <view class="playList-action__left-text">
+            <text class="left-text_title">播放全部</text>
+            <text class="left-text_num">({{ playlist.trackCount }})</text>
+          </view>
+        </view>
+        <view class="playList-action__right">
+          <nut-icon name="download"></nut-icon>
+          <nut-icon name="success"></nut-icon>
+        </view>
+      </view>
+      <scroll-view :scroll-y="true" class="playlist-index-content">
+        <songListItem v-for="(item, index) in playlist.tracks" :key="item.id" :data="item" :border="false">
+          <template #index>
+            <view class="playlist-index-content-index">
+              <text class="number">{{ index + 1 }}</text>
+            </view>
+          </template>
+        </songListItem>
+      </scroll-view>
+    </scroll-view>
   </view>
 </template>
 <script>
-import Navbar from '../../components/navbar/navbar.vue'
+import playListNavbar from '../../components/navbar/playListNavbar.vue'
+import songListItem from '../../components/card/songListItem.vue'
 export default {
-  components: { Navbar },
+  components: { playListNavbar, songListItem },
   data() {
-    return {}
+    return {
+      playListId: 0,
+      playlist: {},
+      specialType: 0
+    }
+  },
+  created() {
+    this.playListId = this.$Taro.getCurrentInstance().router.params.id
+    this.GetPlayListDetail()
+  },
+  methods: {
+    async GetPlayListDetail() {
+      const res = await this.$ajax.get('/playlist/detail', { id: this.playListId })
+      this.playlist = res.playlist
+      this.specialType = res.playlist.specialType
+    }
   }
 }
 </script>
 <style lang="scss">
 .playList-index__wrapper {
   .playList-index__wrapper-header {
+    height: 100vh;
     .nut-navbar {
       height: 40px;
       border-bottom: none;
       box-shadow: none;
     }
   }
+}
+.playList-index-opeartion {
+  // 操作列表位置，注意吸顶
+  position: sticky;
+  top: 50px;
+  height: 30px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  .playList-action__left {
+    display: flex;
+    align-items: center;
+    .nut-icon {
+      padding: 0 10px;
+    }
+    .playList-action__left-text {
+      font-size: 14px;
+      .left-text_title {
+        margin-right: 5px;
+        font-size: 16px;
+        font-weight: bolder;
+      }
+      .left-text_num {
+        color: #8d8d8d;
+      }
+    }
+  }
+  .playList-action__right {
+    margin-left: auto;
+    .nut-icon:not(:last-child) {
+      margin-right: 15px;
+    }
+  }
+}
+.playlist-index-content {
+  height: calc(100vh - 100px);
+}
+.playlist-index-content-index {
+  width: 20px;
+  color: #8d8d8d;
 }
 </style>

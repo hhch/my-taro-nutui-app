@@ -73,7 +73,7 @@ export default {
   }
 
   .common-card__content {
-    padding: 0 10px 10px 10px;
+    padding-bottom: 10px;
   }
   .common-card__footer {
     display: flex;

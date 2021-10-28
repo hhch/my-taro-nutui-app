@@ -1,5 +1,8 @@
 <template>
-  <view class="songList-item__wrapper">
+  <view class="songList-item__wrapper" :class="{ border: border }">
+    <view class="songList-item__wrapper-index" v-if="$slots.index">
+      <slot name="index" />
+    </view>
     <view class="songList-item__wrapper-left">
       <view class="title">
         <text>{{ data.name }}</text>
@@ -9,7 +12,7 @@
         <!-- <text class="no" v-if="data.no == 1">试听</text> -->
         <text class="origin" v-if="data.originCoverType == 1">原唱</text>
         <text class="sq" v-if="data.v !== 150">SQ</text>
-        <text>{{ `${data.ar[0].name} - ${data.al.name}` }}</text>
+        <text class="text">{{ `${data.ar[0].name} - ${data.al.name}` }}</text>
       </view>
       <view class="other" v-if="showFirst">
         <text class="other-item">999+评论</text>
@@ -40,7 +43,14 @@ export default {
       type: Boolean,
       default: false
     },
-    searchWord: String
+    searchWord: {
+      type: String,
+      default: ''
+    },
+    border: {
+      type: Boolean,
+      default: true
+    }
   }
 }
 </script>
@@ -51,13 +61,22 @@ export default {
   margin-right: 2px;
   padding: 0px 2px;
 }
+.border {
+  border-top: 1px solid rgba(#a2a2a2, 0.3);
+}
 .songList-item__wrapper {
   display: flex;
   min-height: 48px;
   justify-content: space-between;
-  padding: 4px 0;
-  border-top: 1px solid rgba(#a2a2a2, 0.3);
+  align-items: center;
+  margin: 0 10px;
+  padding: 5px 0;
+  .songList-item__wrapper-index {
+    font-size: 14px;
+    padding: 0 10px;
+  }
   .songList-item__wrapper-left {
+    flex: 1;
     .title {
       color: rgba(#000, 0.8);
       font-size: 14px;
@@ -79,6 +98,12 @@ export default {
         @include info();
         color: #d48169;
         border: 1px solid rgba(#a2a2a2, 0.3);
+      }
+      .text {
+        max-width: 30vw;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .origin {
         font-size: 8px;
