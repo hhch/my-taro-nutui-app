@@ -5,14 +5,14 @@
     </view>
     <view class="songList-item__wrapper-left">
       <view class="title">
-        <text>{{ data.name }}</text>
+        {{ data.name }}
       </view>
       <view class="info">
-        <text class="vip" v-if="data.fee == 1">vip</text>
+        <view class="vip" v-if="data.fee == 1">vip</view>
         <!-- <text class="no" v-if="data.no == 1">试听</text> -->
-        <text class="origin" v-if="data.originCoverType == 1">原唱</text>
-        <text class="sq" v-if="data.v !== 150">SQ</text>
-        <text class="text">{{ `${data.ar[0].name} - ${data.al.name}` }}</text>
+        <view class="origin" v-if="data.originCoverType == 1">原唱</view>
+        <view class="sq" v-if="data.v !== 150">SQ</view>
+        <view class="text">{{ `${data.ar[0].name} - ${data.al.name}` }}</view>
       </view>
       <view class="other" v-if="showFirst">
         <text class="other-item">999+评论</text>
@@ -56,7 +56,6 @@ export default {
 </script>
 <style lang="scss">
 @mixin info {
-  font-size: 8px;
   border-radius: 4px;
   margin-right: 2px;
   padding: 0px 2px;
@@ -81,9 +80,16 @@ export default {
       color: rgba(#000, 0.8);
       font-size: 14px;
       font-weight: 600;
+      width: 60vw;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-bottom: 5px;
     }
     .info {
-      font-size: 12px;
+      display: flex;
+
+      font-size: 8px !important;
       color: #7c7c7c;
       max-width: 70vw;
       white-space: nowrap;
@@ -100,7 +106,7 @@ export default {
         border: 1px solid rgba(#a2a2a2, 0.3);
       }
       .text {
-        max-width: 30vw;
+        width: 60vw;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -109,7 +115,7 @@ export default {
         font-size: 8px;
         background-color: #e60026;
         color: white;
-        border-radius: 2px;
+        border-radius: 4px;
         margin-right: 2px;
         padding: 1px 1px;
       }

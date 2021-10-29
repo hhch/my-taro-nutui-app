@@ -1,8 +1,16 @@
 <template>
-  <view class="playList-index__wrapper">
+  <view class="playList-index__wrapper" v-if="Object.keys(playlist).length !== 0">
     <scroll-view :scroll-y="true" class="playList-index__wrapper-header">
       <!-- 头部展示信息 -->
-      <playListNavbar :title="specialType == 100 ? '官方动态歌单' : '歌单'" />
+      <play-header>
+        <template #navbar>
+          <playListNavbar :title="specialType == 100 ? '官方动态歌单' : '歌单'" />
+        </template>
+        <template #content>
+          <special-item :data="playlist" v-if="specialType == 100" />
+          <common-item :data="playlist" v-if="specialType == 0" />
+        </template>
+      </play-header>
       <view class="playList-index-opeartion">
         <view class="playList-action__left">
           <nut-icon name="search"></nut-icon>
@@ -29,10 +37,13 @@
   </view>
 </template>
 <script>
+import specialItem from '../../components/navbar/specialItem.vue'
+import playHeader from '../../components/navbar/playHeader.vue'
 import playListNavbar from '../../components/navbar/playListNavbar.vue'
 import songListItem from '../../components/card/songListItem.vue'
+import commonItem from '../../components/navbar/commonItem.vue'
 export default {
-  components: { playListNavbar, songListItem },
+  components: { playListNavbar, songListItem, playHeader, commonItem, specialItem },
   data() {
     return {
       playListId: 0,
@@ -73,6 +84,7 @@ export default {
   display: flex;
   align-items: center;
   padding: 10px;
+  border-bottom: 1px solid #eee;
   .playList-action__left {
     display: flex;
     align-items: center;

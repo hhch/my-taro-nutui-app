@@ -34,11 +34,12 @@ export default {
 </script>
 <style lang="scss">
 .my-playList__header {
+  height: initial;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 320px;
   justify-content: flex-end;
+  padding-top: 100px;
   .my-playlist-header__title {
     .my-playlist-header__title-image {
       width: 180px;
