@@ -10,18 +10,17 @@
 import { reactive } from '@vue/reactivity'
 export default {
   props: {
-    img: {
-      type: String,
-      default: 'https://p1.music.126.net/tVBUL6Ghx9htyEuuFsWTmg==/109951165507341421.jpg'
-    },
+    img: String,
     height: {
       type: String,
       default: 'auto'
     }
   },
   setup(props) {
+    const imgDefault =
+      'https://p1.music.126.net/tVBUL6Ghx9htyEuuFsWTmg==/109951165507341421.jpg'
     const classes = reactive({
-      backgroundImage: `url('${props.img}')`
+      backgroundImage: `url('${props.img || imgDefault}')`
     })
     return {
       classes

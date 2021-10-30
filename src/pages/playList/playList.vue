@@ -1,12 +1,17 @@
 <template>
-  <view class="playList-index__wrapper" v-if="Object.keys(playlist).length !== 0">
+  <view
+    class="playList-index__wrapper"
+    v-if="Object.keys(playlist).length !== 0"
+  >
     <scroll-view :scroll-y="true" class="playList-index__wrapper-header">
       <!-- 头部展示信息 -->
-      <play-header>
+      <play-header :img="backgroundCoverUrl">
         <template #navbar>
-          <playListNavbar :title="specialType == 100 ? '官方动态歌单' : '歌单'" />
+          <playListNavbar
+            :title="specialType == 100 ? '官方动态歌单' : '歌单'"
+          />
         </template>
-        <template #content>
+        <template #content v-if="isShow">
           <special-item :data="playlist" v-if="specialType == 100" />
           <common-item :data="playlist" v-if="specialType == 0" />
         </template>
@@ -25,7 +30,12 @@
         </view>
       </view>
       <scroll-view :scroll-y="true" class="playlist-index-content">
-        <songListItem v-for="(item, index) in playlist.tracks" :key="item.id" :data="item" :border="false">
+        <songListItem
+          v-for="(item, index) in playlist.tracks"
+          :key="item.id"
+          :data="item"
+          :border="false"
+        >
           <template #index>
             <view class="playlist-index-content-index">
               <text class="number">{{ index + 1 }}</text>
@@ -43,23 +53,40 @@ import playListNavbar from '../../components/navbar/playListNavbar.vue'
 import songListItem from '../../components/card/songListItem.vue'
 import commonItem from '../../components/navbar/commonItem.vue'
 export default {
-  components: { playListNavbar, songListItem, playHeader, commonItem, specialItem },
+  components: {
+    playListNavbar,
+    songListItem,
+    playHeader,
+    commonItem,
+    specialItem
+  },
   data() {
     return {
       playListId: 0,
       playlist: {},
-      specialType: 0
+      specialType: 0,
+      backgroundCoverUrl: '',
+      isShow: true
     }
   },
   created() {
     this.playListId = this.$Taro.getCurrentInstance().router.params.id
     this.GetPlayListDetail()
   },
+  mounted() {
+    window.addEventListener('scroll', e => {
+      const distance = e.detail.scrollTop
+      this.isShow = distance <= 180
+    })
+  },
   methods: {
     async GetPlayListDetail() {
-      const res = await this.$ajax.get('/playlist/detail', { id: this.playListId })
+      const res = await this.$ajax.get('/playlist/detail', {
+        id: this.playListId
+      })
       this.playlist = res.playlist
       this.specialType = res.playlist.specialType
+      this.backgroundCoverUrl = res.playlist.backgroundCoverUrl
     }
   }
 }

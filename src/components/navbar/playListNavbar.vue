@@ -22,7 +22,8 @@ export default {
     title: {
       type: String,
       default: '官方动态歌单'
-    }
+    },
+    img: String
   },
   methods: {
     handleBack() {
