@@ -7,7 +7,12 @@
     <!-- 模块组件 -->
     <!-- <TabInfo></TabInfo> -->
     <MusicCard>
-      <MusicCardItem v-for="item in recommendList" :key="item.id" :data="item" @handleCardClick="handleCardClick"></MusicCardItem>
+      <MusicCardItem
+        v-for="item in recommendList"
+        :key="item.id"
+        :data="item"
+        @handleCardClick="handleCardClick"
+      ></MusicCardItem>
     </MusicCard>
   </view>
 </template>
@@ -36,7 +41,9 @@ export default {
     return {
       data: [],
       recommendList: [],
-      todayStart: Math.floor(new Date(new Date().setHours(0, 0, 0, 0)).getTime() / 1000),
+      todayStart: Math.floor(
+        new Date(new Date().setHours(0, 0, 0, 0)).getTime() / 1000
+      ),
       todayEnd: 0,
       MusicDateInfo: {}
     }
@@ -69,8 +76,18 @@ export default {
       })
       this.MusicDateInfo = res.data
     },
+    async getHomeEnterData() {
+      const res = await ajax.get('http://localhost:3000/homepage/block/page', {
+        refresh: true
+      })
+    },
+    async getRecommendResource() {
+      const res = await ajax.get('/recommend/resource')
+    },
     handleCardClick(data) {
-      this.$Taro.navigateTo({ url: '/pages/playList/playList' + `?id=${data.id}` })
+      this.$Taro.navigateTo({
+        url: '/pages/playList/playList' + `?id=${data.id}`
+      })
     }
   }
 }
