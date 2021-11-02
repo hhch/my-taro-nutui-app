@@ -1,6 +1,9 @@
 <template>
-  <view class="common_card__wrapper">
-    <view class="common_card__header">
+  <view class="common_card__wrapper" :style="hasMargin ? styles : {}">
+    <template v-if="$slots.title">
+      <slot name="title" />
+    </template>
+    <view class="common_card__header" v-else>
       <view class="title">
         <text>{{ title }}</text>
       </view>
@@ -19,6 +22,7 @@
   </view>
 </template>
 <script>
+import { reactive } from '@vue/reactivity'
 export default {
   name: 'commonCard',
   props: {
@@ -38,14 +42,26 @@ export default {
     type: {
       type: Boolean,
       default: true
+    },
+    hasMargin: {
+      type: Boolean,
+      default: true
+    }
+  },
+  setup(props) {
+    const styles = reactive({
+      margin: `15px`
+    })
+    return {
+      styles
     }
   }
 }
 </script>
 <style lang="scss">
 .common_card__wrapper {
-  margin: 15px;
   border-radius: 6px;
+  margin: 10px 0;
   background-color: #fff;
   .common_card__header {
     display: flex;

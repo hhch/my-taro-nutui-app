@@ -11,17 +11,22 @@
         {{ `${data.trackCount}首,by ${data.creator.nickname}` }}
       </text>
       <text class="palyList-item__wrapper_right_more">
-        <template v-if="showFirst">
-          <text class="right-more__first">
-            {{ `最多人点 本周热门收听` }}
-          </text>
+        <template v-if="!$slots.footer">
+          <template v-if="showFirst">
+            <text class="right-more__first">
+              {{ `最多人点 本周热门收听` }}
+            </text>
+          </template>
+          <template v-else>
+            <text>
+              包含《
+              <text class="right-more__active">{{ searchWord }}</text>
+              》
+            </text>
+          </template>
         </template>
         <template v-else>
-          <text>
-            包含《
-            <text class="right-more__active">{{ searchWord }}</text>
-            》
-          </text>
+          <slot name="footer" />
         </template>
       </text>
     </view>
@@ -54,8 +59,7 @@ export default {
   display: flex;
   align-items: center;
   min-height: 48px;
-  padding: 4px 0;
-
+  padding: 4px 10px;
   .playList-item__wrapper_left {
     // 处理左侧图片样式
     position: relative;
@@ -88,6 +92,7 @@ export default {
       color: #232323;
       font-weight: bold;
       font-size: 14px;
+      width: 60vw;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
