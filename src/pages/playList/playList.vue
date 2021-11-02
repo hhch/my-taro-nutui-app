@@ -77,18 +77,12 @@ export default {
       await this.GetAllPlayListData()
     },
     async GetAllPlayListData() {
-      if (this.trackIds.length >= 100) {
-        const data = group(this.trackIds, 50)
-        data.forEach(async element => {
-          const ids = element.map(i => i.id).join()
-          const res = await this.$ajax.get('/song/detail', { ids })
-          this.AllPlayList = [...this.AllPlayList, ...res.songs]
-        })
-      } else {
-        const ids = this.trackIds.map(i => i.id).join()
+      const data = group(this.trackIds, 20)
+      data.forEach(async element => {
+        const ids = element.map(i => i.id).join()
         const res = await this.$ajax.get('/song/detail', { ids })
-        this.AllPlayList = res.songs
-      }
+        this.AllPlayList = [...this.AllPlayList, ...res.songs]
+      })
     }
   }
 }
