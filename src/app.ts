@@ -10,6 +10,8 @@ import Taro from '@tarojs/taro'
 
 import ajax from './plugins/ajax'
 
+import store from './store/index'
+
 interface LoginStatusFirst {
   data: object
 }
@@ -36,6 +38,8 @@ const App = createApp({
 })
 
 useNutUI(App)
+
+App.use(store)
 
 App.config.globalProperties.$ajax = ajax
 App.config.globalProperties.$Taro = Taro

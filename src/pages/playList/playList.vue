@@ -25,7 +25,7 @@
         </view>
       </view>
       <scroll-view :scroll-y="true" class="playlist-index-content">
-        <songListItem v-for="(item, index) in playlist.tracks" :key="item.id" :data="item" :border="false">
+        <songListItem v-for="(item, index) in AllPlayList" :key="item.id" :data="item" :border="false">
           <template #index>
             <view class="playlist-index-content-index">
               <text class="number">{{ index + 1 }}</text>
@@ -42,6 +42,7 @@ import playHeader from '../../components/navbar/playHeader.vue'
 import playListNavbar from '../../components/navbar/playListNavbar.vue'
 import songListItem from '../../components/card/songListItem.vue'
 import commonItem from '../../components/navbar/commonItem.vue'
+import { group } from '../../utils/utils'
 export default {
   components: {
     playListNavbar,
@@ -55,7 +56,9 @@ export default {
       playListId: 0,
       playlist: {},
       specialType: 0,
-      backgroundCoverUrl: ''
+      backgroundCoverUrl: '',
+      trackIds: [], // 存放歌单所有id的列表
+      AllPlayList: [] // 所有歌曲id获得的数据
     }
   },
   created() {
@@ -70,6 +73,22 @@ export default {
       this.playlist = res.playlist
       this.specialType = res.playlist.specialType
       this.backgroundCoverUrl = res.playlist.backgroundCoverUrl
+      this.trackIds = res.playlist.trackIds
+      await this.GetAllPlayListData()
+    },
+    async GetAllPlayListData() {
+      if (this.trackIds.length >= 100) {
+        const data = group(this.trackIds, 50)
+        data.forEach(async element => {
+          const ids = element.map(i => i.id).join()
+          const res = await this.$ajax.get('/song/detail', { ids })
+          this.AllPlayList = [...this.AllPlayList, ...res.songs]
+        })
+      } else {
+        const ids = this.trackIds.map(i => i.id).join()
+        const res = await this.$ajax.get('/song/detail', { ids })
+        this.AllPlayList = res.songs
+      }
     }
   }
 }
@@ -124,7 +143,8 @@ export default {
   height: calc(100vh - 100px);
 }
 .playlist-index-content-index {
-  width: 20px;
+  width: max-content;
+  text-align: center;
   color: #8d8d8d;
 }
 </style>
