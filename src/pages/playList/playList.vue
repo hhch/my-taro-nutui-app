@@ -1,17 +1,12 @@
 <template>
-  <view
-    class="playList-index__wrapper"
-    v-if="Object.keys(playlist).length !== 0"
-  >
+  <view class="playList-index__wrapper" v-if="Object.keys(playlist).length !== 0">
     <scroll-view :scroll-y="true" class="playList-index__wrapper-header">
       <!-- 头部展示信息 -->
       <play-header :img="backgroundCoverUrl">
         <template #navbar>
-          <playListNavbar
-            :title="specialType == 100 ? '官方动态歌单' : '歌单'"
-          />
+          <playListNavbar :title="specialType == 100 ? '官方动态歌单' : '歌单'" />
         </template>
-        <template #content v-if="isShow">
+        <template #content>
           <special-item :data="playlist" v-if="specialType == 100" />
           <common-item :data="playlist" v-if="specialType == 0" />
         </template>
@@ -30,12 +25,7 @@
         </view>
       </view>
       <scroll-view :scroll-y="true" class="playlist-index-content">
-        <songListItem
-          v-for="(item, index) in playlist.tracks"
-          :key="item.id"
-          :data="item"
-          :border="false"
-        >
+        <songListItem v-for="(item, index) in playlist.tracks" :key="item.id" :data="item" :border="false">
           <template #index>
             <view class="playlist-index-content-index">
               <text class="number">{{ index + 1 }}</text>
@@ -65,19 +55,12 @@ export default {
       playListId: 0,
       playlist: {},
       specialType: 0,
-      backgroundCoverUrl: '',
-      isShow: true
+      backgroundCoverUrl: ''
     }
   },
   created() {
     this.playListId = this.$Taro.getCurrentInstance().router.params.id
     this.GetPlayListDetail()
-  },
-  mounted() {
-    window.addEventListener('scroll', e => {
-      const distance = e.detail.scrollTop
-      this.isShow = distance <= 180
-    })
   },
   methods: {
     async GetPlayListDetail() {
