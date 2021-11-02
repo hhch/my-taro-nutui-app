@@ -25,7 +25,14 @@
         </view>
       </view>
       <scroll-view :scroll-y="true" class="playlist-index-content">
-        <songListItem v-for="(item, index) in AllPlayList" :key="item.id" :data="item" :border="false">
+        <songListItem
+          v-for="(item, index) in AllPlayList"
+          :key="item.id"
+          :data="item"
+          :other="getCurrentSongUrl(item)"
+          :border="false"
+          @handleItemClick="handleSongItemClick"
+        >
           <template #index>
             <view class="playlist-index-content-index">
               <text class="number">{{ index + 1 }}</text>
@@ -34,6 +41,7 @@
         </songListItem>
       </scroll-view>
     </scroll-view>
+    <Player />
   </view>
 </template>
 <script>
@@ -58,7 +66,8 @@ export default {
       specialType: 0,
       backgroundCoverUrl: '',
       trackIds: [], // 存放歌单所有id的列表
-      AllPlayList: [] // 所有歌曲id获得的数据
+      AllPlayList: [], // 所有歌曲id获得的数据
+      AllSongList: [] // 根据 trackIds 获取到歌曲的 url 信息
     }
   },
   created() {
@@ -76,13 +85,27 @@ export default {
       this.trackIds = res.playlist.trackIds
       await this.GetAllPlayListData()
     },
+    getCurrentSongUrl({ id }) {
+      // 从获取音乐url中正确拿到对应的 数据
+      return this.AllSongList.filter(i => i.id == id)[0] || {}
+    },
     async GetAllPlayListData() {
       const data = group(this.trackIds, 20)
       data.forEach(async element => {
         const ids = element.map(i => i.id).join()
         const res = await this.$ajax.get('/song/detail', { ids })
         this.AllPlayList = [...this.AllPlayList, ...res.songs]
+        this.$ajax.get('/song/url', { id: ids }).then(res => {
+          // 异步获取 歌曲url，
+          this.AllSongList = [...this.AllSongList, ...res.data]
+        })
       })
+    },
+    handleSongItemClick({ song, data }) {
+      // 处理 Item 点击事件，一般是用来处理播放音乐信息
+
+      // 传递当前信息
+      this.$store.commit('setCurrentData', { song, data })
     }
   }
 }
@@ -90,7 +113,7 @@ export default {
 <style lang="scss">
 .playList-index__wrapper {
   .playList-index__wrapper-header {
-    height: 100vh;
+    height: calc(100vh - 50px);
     .nut-navbar {
       height: 40px;
       border-bottom: none;
@@ -134,7 +157,7 @@ export default {
   }
 }
 .playlist-index-content {
-  height: calc(100vh - 100px);
+  height: calc(100vh - 150px);
 }
 .playlist-index-content-index {
   width: max-content;

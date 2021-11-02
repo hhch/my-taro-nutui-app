@@ -1,5 +1,5 @@
 <template>
-  <view class="songList-item__wrapper" :class="{ border: border }">
+  <view class="songList-item__wrapper" :class="{ border: border }" @click="handleItemClick">
     <view class="songList-item__wrapper-index" v-if="$slots.index">
       <slot name="index" />
     </view>
@@ -21,7 +21,7 @@
     </view>
     <view class="songList-item__wrapper-right">
       <!-- <image class="right__image" v-if="item.cp !== 0" src="../../asset/music/video.png"></image> -->
-      <image class="right__image" src="../../asset/music/action.png"></image>
+      <image class="right__image" src="../../asset/music/action.png" @click="hanleActionClick"></image>
     </view>
   </view>
 </template>
@@ -38,7 +38,8 @@ interface ItemType {
 }
 export default {
   props: {
-    data: Object as PropType<ItemType>,
+    data: Object as PropType<ItemType>, // 歌曲基本信息
+    other: Object, // 存放音乐url 信息
     showFirst: {
       type: Boolean,
       default: false
@@ -50,6 +51,18 @@ export default {
     border: {
       type: Boolean,
       default: true
+    }
+  },
+  emits: ['hanleActionClick', 'handleItemClick'],
+  methods: {
+    hanleActionClick(e) {
+      // 操作 点击时间
+      e.stopPropagation()
+      this.$emit('hanleActionClick', { song: this.data, data: this.other })
+    },
+    handleItemClick() {
+      // 整个点击事件，用来播放音乐
+      this.$emit('handleItemClick', { song: this.data, data: this.other })
     }
   }
 }

@@ -12,6 +12,8 @@ import ajax from './plugins/ajax'
 
 import store from './store/index'
 
+// @ts-ignore
+import Player from './components/player/player.vue'
 interface LoginStatusFirst {
   data: object
 }
@@ -40,6 +42,7 @@ const App = createApp({
 useNutUI(App)
 
 App.use(store)
+App.component('Player', Player)
 
 App.config.globalProperties.$ajax = ajax
 App.config.globalProperties.$Taro = Taro
