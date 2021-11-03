@@ -22,7 +22,7 @@ export default {
 .my-user-like__wrapper {
   display: flex;
   align-items: center;
-  background-color: #fff;
+  background-color: #eee;
   border-radius: 10px;
   margin: 10px 0;
   padding: 10px;

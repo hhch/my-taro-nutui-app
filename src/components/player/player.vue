@@ -86,7 +86,7 @@ export default {
   height: 50px;
   padding: 0 10px;
   display: flex;
-
+  background-color: #fff;
   align-items: center;
   .my-player__image {
     background-image: url('https://s2.music.126.net/style/web2/img/ie6/singlecover.png?a1de50ab325dc0d2d7e96a4e4ca71668');

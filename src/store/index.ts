@@ -72,7 +72,6 @@ const store = createStore<State>({
       // 赋值当前 歌曲 url
       state.currentInstance.src = state.currentSongData.url.replace('http', 'https')
       // 开启自动播放
-      console.log(state.currentInstance)
       // state.currentInstance.autoplay = true
       this.commit('StartPlayer')
     },

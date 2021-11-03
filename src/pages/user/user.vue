@@ -12,7 +12,7 @@
         <view class="tab-item">收藏歌单</view>
         <view class="tab-item">歌单助手</view>
       </view>
-      <common-card :showAll="false" :hasMargin="false" v-if="Object.keys(userPlayList).length !== 0">
+      <common-card :showAll="false" class="special-card" :hasMargin="false" v-if="Object.keys(userPlayList).length !== 0">
         <template #title>
           <view class="user-create-playlist__header">
             <text class="user-create-playlist__title">{{ `创建歌单(${userPlayList.length}个)` }}</text>
@@ -28,7 +28,7 @@
           </play-list-item>
         </template>
       </common-card>
-      <common-card :showAll="false" :hasMargin="false" v-if="Object.keys(userCollectionList).length !== 0">
+      <common-card :showAll="false" class="special-card" :hasMargin="false" v-if="Object.keys(userCollectionList).length !== 0">
         <template #title>
           <view class="user-create-playlist__header">
             <text class="user-create-playlist__title">{{ `创建歌单(${userCollectionList.length}个)` }}</text>
@@ -45,6 +45,7 @@
         </template>
       </common-card>
     </scroll-view>
+    <Player />
   </view>
 </template>
 
@@ -97,17 +98,21 @@ export default {
 </script>
 <style lang="scss">
 .my-user-index__wrapper {
-  background-color: #eee;
   padding: 0 10px;
+  height: calc(100vh - 50px);
 }
 .my-userIndex__scroll-wrapper {
-  height: calc(100vh - 49px);
-  padding-bottom: 20px;
+  height: calc(100vh - 110px);
+  padding-bottom: 10px;
+  .special-card {
+    background-color: #eee;
+  }
 }
 .user-navbar__wrapper {
   display: flex;
   justify-content: space-between;
   padding: 10px;
+  height: 30px;
 }
 .user-tab-wrapper {
   display: flex;
