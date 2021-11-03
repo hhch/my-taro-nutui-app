@@ -6,6 +6,7 @@ export default {
     navigationBarTitleText: 'WeChat',
     navigationBarTextStyle: 'black'
   },
+  requiredBackgroundModes: ['audio', 'location'],
   tabBar: {
     color: '#000',
     selectedColor: '#e60026',

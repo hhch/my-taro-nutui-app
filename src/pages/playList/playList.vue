@@ -95,7 +95,7 @@ export default {
         const ids = element.map(i => i.id).join()
         const res = await this.$ajax.get('/song/detail', { ids })
         this.AllPlayList = [...this.AllPlayList, ...res.songs]
-        this.$ajax.get('/song/url', { id: ids }).then(res => {
+        this.$ajax.get('/song/url', { id: ids, br: 128000 }).then(res => {
           // 异步获取 歌曲url，
           this.AllSongList = [...this.AllSongList, ...res.data]
         })

@@ -2,18 +2,16 @@
   <view class="index-wrapper">
     <!-- input 搜索框 -->
     <search-input></search-input>
-    <!-- swiper 组件 -->
-    <image-swiper :list="data"></image-swiper>
-    <!-- 模块组件 -->
-    <!-- <TabInfo></TabInfo> -->
-    <MusicCard>
-      <MusicCardItem
-        v-for="item in recommendList"
-        :key="item.id"
-        :data="item"
-        @handleCardClick="handleCardClick"
-      ></MusicCardItem>
-    </MusicCard>
+    <scroll-view class="index-scroll__wrapper" :scroll-y="true">
+      <!-- swiper 组件 -->
+      <image-swiper :list="data"></image-swiper>
+      <!-- 模块组件 -->
+      <!-- <TabInfo></TabInfo> -->
+      <MusicCard>
+        <MusicCardItem v-for="item in recommendList" :key="item.id" :data="item" @handleCardClick="handleCardClick"></MusicCardItem>
+      </MusicCard>
+    </scroll-view>
+    <Player />
   </view>
 </template>
 
@@ -26,7 +24,7 @@ import MusicCard from '../../components/card/card.vue' // 推荐歌单模块基�
 
 import MusicCardItem from '../../components/card/cardItem.vue' // 推荐歌单模块基本组件
 import ajax from '../../plugins/ajax'
-import Taro from '@tarojs/taro'
+
 export default {
   name: 'Index',
   components: {
@@ -41,9 +39,7 @@ export default {
     return {
       data: [],
       recommendList: [],
-      todayStart: Math.floor(
-        new Date(new Date().setHours(0, 0, 0, 0)).getTime() / 1000
-      ),
+      todayStart: Math.floor(new Date(new Date().setHours(0, 0, 0, 0)).getTime() / 1000),
       todayEnd: 0,
       MusicDateInfo: {}
     }
@@ -54,12 +50,7 @@ export default {
     this.getBannerData()
     this.getMusicDateInfo()
   },
-  mounted() {},
-  onPullDownRefresh() {
-    setTimeout(() => {
-      Taro.stopPullDownRefresh()
-    }, 3000)
-  },
+
   methods: {
     async getRecommendList() {
       const res = await ajax.get('http://localhost:3000/personalized?limit=5')
@@ -98,5 +89,8 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.index-scroll__wrapper {
+  height: calc(100vh - 135px);
 }
 </style>

@@ -3,16 +3,21 @@
     <view class="my-player__image ">
       <image :src="currentInfo.al.picUrl" class="my-player__image-content" :class="{ circle: currentStatus }" v-if="currentInfo.al.picUrl"></image>
       <view class="my-player__image__default" v-else>
-        <text>111</text>
+        <image src="../../asset/player/wyy.jpg" class="my-player__image-content" />
       </view>
     </view>
-    <view class="my-player__title">
-      <text class="song-name">{{ currentInfo.name }}</text>
-      <text class="user-info">{{ `-${currentInfo.al.name}` }}</text>
-    </view>
+    <scroll-view :scroll-x="true" class="my-player__title">
+      <template v-if="currentInfo.name && currentInfo.ar[0].name">
+        <view class="song-name">{{ currentInfo.name }}</view>
+        <view class="user-info">{{ ` - ${currentInfo.ar[0].name}` }}</view>
+      </template>
+      <template v-else>
+        <view class="my-player__title__default">暂时没有播放的歌曲哦</view>
+      </template>
+    </scroll-view>
     <view class="my-player__status">
-      <image class="my-player__status-player" v-if="!currentStatus" src="../../asset/player/player.png" />
-      <image class="my-player__status-stop" v-else src="../../asset/player/stop.png" />
+      <image class="my-player__status-player" v-if="!currentStatus" src="../../asset/player/player.png" @click="handlePlay" />
+      <image class="my-player__status-stop" v-else src="../../asset/player/stop.png" @click="handleStop" />
     </view>
     <view class="my-player__list">
       <nut-icon name="horizontal"></nut-icon>
@@ -34,7 +39,36 @@ export default {
     currentStatus() {
       // 获取 当前正在播放的状态
       return this.$store.state.currentPlayStatus
+    },
+    currentInstance() {
+      // 当前播放实例
+      return this.$store.state.currentInstance
     }
+  },
+  data() {
+    return {
+      AudioInstance: null // 当前audio 实例，用来播放音乐
+    }
+  },
+  onHide() {
+    console.log('www')
+  },
+  methods: {
+    handlePlay() {
+      // 播放音乐操作
+      this.$store.commit('StartPlayer')
+    },
+    handleStop() {
+      // 暂停音乐操作
+      this.$store.commit('PausePlayer')
+    },
+    getPlayerCurrentTime() {
+      // 获得当前播放 时间， 以获得播放进度，从而 展示
+    }
+  },
+  beforeUnmount() {
+    // 暂停音乐操作
+    this.$store.commit('PausePlayer')
   }
 }
 </script>
@@ -52,6 +86,7 @@ export default {
   height: 50px;
   padding: 0 10px;
   display: flex;
+
   align-items: center;
   .my-player__image {
     background-image: url('https://s2.music.126.net/style/web2/img/ie6/singlecover.png?a1de50ab325dc0d2d7e96a4e4ca71668');
@@ -76,15 +111,21 @@ export default {
   .my-player__title {
     // 处理展示文字
     flex: 1;
-    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
     .song-name {
       font-size: 14px;
-      max-width: 60vw;
       white-space: nowrap;
-      overflow: hidden;
     }
     .user-info {
       font-size: 10px;
+      color: #8d8d8d;
+      white-space: nowrap;
+    }
+    .my-player__title__default {
+      white-space: nowrap;
+      font-size: 14px;
       color: #8d8d8d;
     }
   }
