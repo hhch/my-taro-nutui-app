@@ -23,7 +23,7 @@
           </view>
         </template>
         <template #content>
-          <play-list-item v-for="item in userPlayList" :key="item.id" :data="item">
+          <play-list-item v-for="item in userPlayList" :key="item.id" :data="item" @handlePlayListItemClick="handlePlaylistClick">
             <template #footer></template>
           </play-list-item>
         </template>
@@ -39,13 +39,13 @@
           </view>
         </template>
         <template #content>
-          <play-list-item v-for="item in userCollectionList" :key="item.id" :data="item">
+          <play-list-item v-for="item in userCollectionList" :key="item.id" :data="item" @handlePlayListItemClick="handlePlaylistClick">
             <template #footer></template>
           </play-list-item>
         </template>
       </common-card>
     </scroll-view>
-    <Player />
+    <!-- <Player /> -->
   </view>
 </template>
 
@@ -92,6 +92,11 @@ export default {
       this.userPlayList = res.playlist.filter(i => i.ordered == false && i.specialType !== 5)
       this.userCollectionList = res.playlist.filter(i => i.ordered == true)
       this.userLike.coverImgUrl = res.playlist.filter(i => i.specialType == 5)[0].coverImgUrl
+    },
+    handlePlaylistClick(data) {
+      this.$Taro.navigateTo({
+        url: '/pages/playList/playList' + `?id=${data.id}`
+      })
     }
   }
 }
@@ -99,10 +104,9 @@ export default {
 <style lang="scss">
 .my-user-index__wrapper {
   padding: 0 10px;
-  height: calc(100vh - 50px);
 }
 .my-userIndex__scroll-wrapper {
-  height: calc(100vh - 110px);
+  height: calc(100vh - 60px);
   padding-bottom: 10px;
   .special-card {
     background-color: #eee;

@@ -11,7 +11,7 @@
         <MusicCardItem v-for="item in recommendList" :key="item.id" :data="item" @handleCardClick="handleCardClick"></MusicCardItem>
       </MusicCard>
     </scroll-view>
-    <Player />
+    <!-- <Player /> -->
   </view>
 </template>
 
@@ -49,6 +49,11 @@ export default {
     this.getRecommendList()
     this.getBannerData()
     this.getMusicDateInfo()
+  },
+  computed: {
+    currentInstance() {
+      return this.$store.state.currentInstance
+    }
   },
 
   methods: {

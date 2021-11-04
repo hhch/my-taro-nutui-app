@@ -1,5 +1,5 @@
 <template>
-  <view class="playList-item__wrapper">
+  <view class="playList-item__wrapper" @click="handlePlaylistClick">
     <view class="playList-item__wrapper_left">
       <image class="playList-item__wrapper_left-image" :src="data.coverImgUrl" />
     </view>
@@ -51,7 +51,12 @@ export default {
     },
     searchWord: String
   },
-  emits: ['handlePlayListItemClick']
+  emits: ['handlePlayListItemClick'],
+  methods: {
+    handlePlaylistClick() {
+      this.$emit('handlePlayListItemClick', this.data)
+    }
+  }
 }
 </script>
 <style lang="scss">
